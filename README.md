@@ -18,7 +18,7 @@ mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
 ## About the image
 
-`entry.png` (1536×1536, PNG) is a newspaper-style front page. The lead story is
+`entry.png` (1024×1024, PNG) is a newspaper-style front page. The lead story is
 the first-ever Xi–Trump–Putin trilateral summit in Shenzhen, which ended with
 a joint "peace declaration" that a nuclear war "cannot be won and must never
 be fought". The six other stories cover the World Court's ruling that Myanmar

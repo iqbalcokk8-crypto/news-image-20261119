@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Draw the news-image-20261119 entry: one 1536x1536 newspaper front page
+"""Draw the news-image-20261119 entry: one 1024x1024 newspaper front page
 summing up the world news of Thursday 19 November 2026.
 
 Deterministic: no randomness, no timestamps, no network, no AI image
@@ -13,7 +13,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
-W, H = 1536, 1536
+W, H = 1024, 1024
 PAPER = (247, 243, 230)      # warm newsprint
 CARD = (255, 255, 255)
 INK = (24, 24, 28)
@@ -69,7 +69,7 @@ def summary_font(draw, text, sizes, max_w, max_lines):
     return load("sans", sizes[-1])
 
 
-def spaced(draw, xy, text, fnt, fill, gap=5):
+def spaced(draw, xy, text, fnt, fill, gap=3):
     """Draw text with extra space between letters (kicker style)."""
     x, y = xy
     for ch in text:
@@ -159,51 +159,51 @@ CARDS = [
 def draw_glyph(draw, kind, box, color):
     """White geometric glyph on a coloured rounded square."""
     x0, y0, x1, y1 = box
-    draw.rounded_rectangle(box, radius=14, fill=color)
+    draw.rounded_rectangle(box, radius=9, fill=color)
     cx, cy = (x0 + x1) // 2, (y0 + y1) // 2
     w = (255, 255, 255)
     if kind == "scales":
-        draw.line([(cx, cy - 24), (cx, cy + 24)], fill=w, width=5)
-        draw.line([(cx - 24, cy - 15), (cx + 24, cy - 15)], fill=w, width=5)
-        for dx in (-24, 24):
-            draw.line([(cx + dx, cy - 15), (cx + dx - 11, cy + 3)], fill=w, width=3)
-            draw.line([(cx + dx, cy - 15), (cx + dx + 11, cy + 3)], fill=w, width=3)
-            draw.arc([cx + dx - 11, cy - 3, cx + dx + 11, cy + 15], 0, 180,
-                     fill=w, width=3)
-        draw.line([(cx - 18, cy + 24), (cx + 18, cy + 24)], fill=w, width=5)
+        draw.line([(cx, cy - 16), (cx, cy + 16)], fill=w, width=3)
+        draw.line([(cx - 16, cy - 10), (cx + 16, cy - 10)], fill=w, width=3)
+        for dx in (-16, 16):
+            draw.line([(cx + dx, cy - 10), (cx + dx - 7, cy + 2)], fill=w, width=2)
+            draw.line([(cx + dx, cy - 10), (cx + dx + 7, cy + 2)], fill=w, width=2)
+            draw.arc([cx + dx - 7, cy - 2, cx + dx + 7, cy + 10], 0, 180,
+                     fill=w, width=2)
+        draw.line([(cx - 12, cy + 16), (cx + 12, cy + 16)], fill=w, width=3)
     elif kind == "bridge":
-        draw.rectangle([cx - 30, cy - 24, cx - 21, cy + 18], fill=w)
-        draw.rectangle([cx + 21, cy - 24, cx + 30, cy + 18], fill=w)
-        draw.line([(cx - 26, cy - 24), (cx, cy + 3)], fill=w, width=3)
-        draw.line([(cx + 26, cy - 24), (cx, cy + 3)], fill=w, width=3)
-        draw.rectangle([cx - 33, cy + 3, cx - 9, cy + 12], fill=w)
-        draw.rectangle([cx + 9, cy + 3, cx + 33, cy + 12], fill=w)
-        draw.line([(cx - 30, cy + 26), (cx + 30, cy + 26)], fill=w, width=3)
+        draw.rectangle([cx - 20, cy - 16, cx - 14, cy + 12], fill=w)
+        draw.rectangle([cx + 14, cy - 16, cx + 20, cy + 12], fill=w)
+        draw.line([(cx - 17, cy - 16), (cx, cy + 2)], fill=w, width=2)
+        draw.line([(cx + 17, cy - 16), (cx, cy + 2)], fill=w, width=2)
+        draw.rectangle([cx - 22, cy + 2, cx - 6, cy + 8], fill=w)
+        draw.rectangle([cx + 6, cy + 2, cx + 22, cy + 8], fill=w)
+        draw.line([(cx - 20, cy + 17), (cx + 20, cy + 17)], fill=w, width=2)
     elif kind == "chart":
-        for i, h in enumerate((15, 27, 21, 36)):
-            bx = cx - 30 + i * 17
-            draw.rectangle([bx, cy + 18 - h, bx + 11, cy + 18], fill=w)
-        draw.line([(cx - 33, cy - 24), (cx + 30, cy - 30)], fill=(245, 197, 66),
-                  width=5)
-        draw.polygon([(cx + 30, cy - 30), (cx + 18, cy - 30), (cx + 30, cy - 18)],
+        for i, h in enumerate((10, 18, 14, 24)):
+            bx = cx - 20 + i * 11
+            draw.rectangle([bx, cy + 12 - h, bx + 7, cy + 12], fill=w)
+        draw.line([(cx - 22, cy - 16), (cx + 20, cy - 20)], fill=(245, 197, 66),
+                  width=3)
+        draw.polygon([(cx + 20, cy - 20), (cx + 12, cy - 20), (cx + 20, cy - 12)],
                      fill=(245, 197, 66))
     elif kind == "globe":
-        draw.ellipse([cx - 27, cy - 27, cx + 27, cy + 27], outline=w, width=5)
-        draw.ellipse([cx - 12, cy - 27, cx + 12, cy + 27], outline=w, width=3)
-        draw.line([(cx - 27, cy), (cx + 27, cy)], fill=w, width=3)
-        draw.arc([cx - 27, cy - 14, cx + 27, cy + 14], 200, 340, fill=w, width=3)
-        draw.arc([cx - 27, cy - 14, cx + 27, cy + 14], 20, 160, fill=w, width=3)
+        draw.ellipse([cx - 18, cy - 18, cx + 18, cy + 18], outline=w, width=3)
+        draw.ellipse([cx - 8, cy - 18, cx + 8, cy + 18], outline=w, width=2)
+        draw.line([(cx - 18, cy), (cx + 18, cy)], fill=w, width=2)
+        draw.arc([cx - 18, cy - 9, cx + 18, cy + 9], 200, 340, fill=w, width=2)
+        draw.arc([cx - 18, cy - 9, cx + 18, cy + 9], 20, 160, fill=w, width=2)
     elif kind == "tank":
-        draw.rectangle([cx - 30, cy - 12, cx + 24, cy + 9], fill=w)
-        draw.rectangle([cx - 12, cy - 24, cx + 12, cy - 12], fill=w)
-        draw.line([(cx + 12, cy - 20), (cx + 33, cy - 20)], fill=w, width=5)
-        for dx in (-21, -6, 9, 24):
-            draw.ellipse([cx + dx - 6, cy + 12, cx + dx + 6, cy + 24], fill=w)
+        draw.rectangle([cx - 20, cy - 8, cx + 16, cy + 6], fill=w)
+        draw.rectangle([cx - 8, cy - 16, cx + 8, cy - 8], fill=w)
+        draw.line([(cx + 8, cy - 13), (cx + 22, cy - 13)], fill=w, width=3)
+        for dx in (-14, -4, 6, 16):
+            draw.ellipse([cx + dx - 4, cy + 8, cx + dx + 4, cy + 16], fill=w)
     elif kind == "flame":
-        draw.polygon([(cx, cy - 30), (cx + 12, cy - 9), (cx + 24, cy + 3),
-                      (cx + 18, cy + 24), (cx - 18, cy + 24), (cx - 24, cy + 3),
-                      (cx - 12, cy - 9)], fill=w)
-        draw.ellipse([cx - 9, cy + 3, cx + 9, cy + 21], fill=color)
+        draw.polygon([(cx, cy - 20), (cx + 8, cy - 6), (cx + 16, cy + 2),
+                      (cx + 12, cy + 16), (cx - 12, cy + 16), (cx - 16, cy + 2),
+                      (cx - 8, cy - 6)], fill=w)
+        draw.ellipse([cx - 6, cy + 2, cx + 6, cy + 14], fill=color)
 
 
 def draw_summit_panel(draw, box):
@@ -213,117 +213,117 @@ def draw_summit_panel(draw, box):
     floor = (226, 214, 188)
     draw.rectangle(box, fill=sky)
     # sun and skyline
-    draw.ellipse([x1 - 87, y0 + 18, x1 - 36, y0 + 69], fill=(245, 197, 66))
-    for bx, bh in ((x0 + 21, 51), (x0 + 66, 78), (x0 + 117, 42)):
-        draw.rectangle([bx, y0 + 177 - bh, bx + 36, y0 + 177], fill=(168, 186, 205))
-    draw.rectangle([x0, y0 + 177, x1, y1], fill=floor)
+    draw.ellipse([x1 - 58, y0 + 12, x1 - 24, y0 + 46], fill=(245, 197, 66))
+    for bx, bh in ((x0 + 14, 34), (x0 + 44, 52), (x0 + 78, 28)):
+        draw.rectangle([bx, y0 + 118 - bh, bx + 24, y0 + 118], fill=(168, 186, 205))
+    draw.rectangle([x0, y0 + 118, x1, y1], fill=floor)
     # round table
-    tx, ty = (x0 + x1) // 2, y0 + 252
-    draw.ellipse([tx - 144, ty - 27, tx + 144, ty + 27], fill=(122, 72, 44))
-    draw.ellipse([tx - 144, ty - 27, tx + 144, ty + 27], outline=(90, 52, 30),
-                 width=3)
-    draw.rectangle([tx - 15, ty + 18, tx + 15, y1 - 12], fill=(90, 52, 30))
+    tx, ty = (x0 + x1) // 2, y0 + 168
+    draw.ellipse([tx - 96, ty - 18, tx + 96, ty + 18], fill=(122, 72, 44))
+    draw.ellipse([tx - 96, ty - 18, tx + 96, ty + 18], outline=(90, 52, 30),
+                 width=2)
+    draw.rectangle([tx - 10, ty + 12, tx + 10, y1 - 8], fill=(90, 52, 30))
     # three seated figures: head + shoulders, in three colours
     figures = [
-        (tx - 111, (178, 34, 22)),   # left
-        (tx, (26, 40, 72)),          # centre
-        (tx + 111, (15, 118, 110)),  # right
+        (tx - 74, (178, 34, 22)),   # left
+        (tx, (26, 40, 72)),         # centre
+        (tx + 74, (15, 118, 110)),  # right
     ]
     for fx, col in figures:
-        draw.ellipse([fx - 23, y0 + 78, fx + 23, y0 + 123], fill=(232, 196, 160))
-        draw.pieslice([fx - 23, y0 + 78, fx + 23, y0 + 123], 180, 360, fill=(60, 60, 60))
-        draw.polygon([(fx - 39, y0 + 192), (fx - 21, y0 + 129), (fx + 21, y0 + 129),
-                      (fx + 39, y0 + 192)], fill=col)
-        draw.polygon([(fx - 9, y0 + 132), (fx, y0 + 150), (fx + 9, y0 + 132)],
+        draw.ellipse([fx - 15, y0 + 52, fx + 15, y0 + 82], fill=(232, 196, 160))
+        draw.pieslice([fx - 15, y0 + 52, fx + 15, y0 + 82], 180, 360, fill=(60, 60, 60))
+        draw.polygon([(fx - 26, y0 + 128), (fx - 14, y0 + 86), (fx + 14, y0 + 86),
+                      (fx + 26, y0 + 128)], fill=col)
+        draw.polygon([(fx - 6, y0 + 88), (fx, y0 + 100), (fx + 6, y0 + 88)],
                      fill=(255, 255, 255))
     # small flags on the table
-    for fx, col in ((tx - 51, (178, 34, 22)), (tx + 33, (26, 40, 72))):
-        draw.line([(fx, ty - 51), (fx, ty - 18)], fill=(60, 60, 60), width=3)
-        draw.polygon([(fx, ty - 51), (fx + 24, ty - 44), (fx, ty - 36)], fill=col)
+    for fx, col in ((tx - 34, (178, 34, 22)), (tx + 22, (26, 40, 72))):
+        draw.line([(fx, ty - 34), (fx, ty - 12)], fill=(60, 60, 60), width=2)
+        draw.polygon([(fx, ty - 34), (fx + 16, ty - 29), (fx, ty - 24)], fill=col)
     # caption strip
-    draw.rectangle([x0, y1 - 39, x1, y1], fill=(24, 24, 28))
-    draw.text((x0 + 15, y1 - 32), "SHENZHEN · THE FIRST TRILATERAL SUMMIT",
-              font=load("sans_b", 18), fill=(255, 255, 255))
+    draw.rectangle([x0, y1 - 26, x1, y1], fill=(24, 24, 28))
+    draw.text((x0 + 10, y1 - 21), "SHENZHEN · THE FIRST TRILATERAL SUMMIT",
+              font=load("sans_b", 12), fill=(255, 255, 255))
 
 
 # ------------------------------------------------------------------ build
 def build():
     img = Image.new("RGB", (W, H), PAPER)
     d = ImageDraw.Draw(img)
-    M = 42
+    M = 28
     CW = W - 2 * M
 
     # outer frame
-    d.rectangle([15, 15, W - 16, H - 16], outline=INK, width=3)
+    d.rectangle([10, 10, W - 11, H - 11], outline=INK, width=2)
 
     # ---- masthead
-    y = 39
+    y = 26
     spaced(d, (M, y), "WORLD NEWS  ·  ONE DAY IN ONE IMAGE",
-           load("sans_b", 23), RED, gap=5)
-    y += 45
-    d.text((M, y), "THURSDAY, 19 NOVEMBER 2026", font=load("serif_b", 75),
+           load("sans_b", 15), RED, gap=3)
+    y += 30
+    d.text((M, y), "THURSDAY, 19 NOVEMBER 2026", font=load("serif_b", 50),
            fill=NAVY)
-    y += 102
+    y += 68
     d.text((M, y), "Seven stories that defined the day — verified against "
                    "independent reporting.",
-           font=load("sans", 26), fill=GRAY)
-    y += 42
-    d.line([(M, y), (W - M, y)], fill=INK, width=5)
-    d.line([(M, y + 9), (W - M, y + 9)], fill=INK, width=2)
+           font=load("sans", 17), fill=GRAY)
+    y += 28
+    d.line([(M, y), (W - M, y)], fill=INK, width=3)
+    d.line([(M, y + 6), (W - M, y + 6)], fill=INK, width=1)
 
     # ---- lead story
-    ly, lh = 252, 354
-    d.text((M, ly), LEAD["kicker"], font=load("sans_b", 21), fill=RED)
-    hf = headline_font(d, LEAD["headline2"], [60, 57, 54], 900)
-    d.text((M, ly + 36), LEAD["headline"], font=hf, fill=INK)
-    d.text((M, ly + 36 + 69), LEAD["headline2"], font=hf, fill=INK)
-    s_lines = wrap_text(d, LEAD["summary"], load("sans", 27), 900)
-    sy = ly + 198
+    ly, lh = 168, 236
+    d.text((M, ly), LEAD["kicker"], font=load("sans_b", 14), fill=RED)
+    hf = headline_font(d, LEAD["headline2"], [40, 38, 36], 600)
+    d.text((M, ly + 24), LEAD["headline"], font=hf, fill=INK)
+    d.text((M, ly + 24 + 46), LEAD["headline2"], font=hf, fill=INK)
+    s_lines = wrap_text(d, LEAD["summary"], load("sans", 18), 600)
+    sy = ly + 132
     for ln in s_lines:
-        d.text((M, sy), ln, font=load("sans", 27), fill=INK)
-        sy += 36
-    d.text((M, ly + lh - 33), LEAD["source"], font=load("sans_b", 20), fill=GRAY)
-    draw_summit_panel(d, (984, ly, W - M, ly + lh))
+        d.text((M, sy), ln, font=load("sans", 18), fill=INK)
+        sy += 24
+    d.text((M, ly + lh - 22), LEAD["source"], font=load("sans_b", 13), fill=GRAY)
+    draw_summit_panel(d, (656, ly, W - M, ly + lh))
 
     # ---- divider
-    dy = ly + lh + 21
-    d.line([(M, dy), (W - M, dy)], fill=RULE, width=3)
+    dy = ly + lh + 14
+    d.line([(M, dy), (W - M, dy)], fill=RULE, width=2)
 
     # ---- grid of six cards
-    gy = dy + 24
-    card_w, card_h, gap = 714, 234, 18
+    gy = dy + 16
+    card_w, card_h, gap = 476, 156, 12
     for i, c in enumerate(CARDS):
         row, col = divmod(i, 2)
         x = M + col * (card_w + gap)
         yy = gy + row * (card_h + gap)
-        d.rounded_rectangle((x, yy, x + card_w, yy + card_h), radius=12,
-                            fill=CARD, outline=RULE, width=2)
-        d.rectangle([x + 12, yy, x + card_w - 12, yy + 8], fill=c["color"])
-        draw_glyph(d, c["icon"], (x + 21, yy + 24, x + 105, yy + 108),
+        d.rounded_rectangle((x, yy, x + card_w, yy + card_h), radius=8,
+                            fill=CARD, outline=RULE, width=1)
+        d.rectangle([x + 8, yy, x + card_w - 8, yy + 5], fill=c["color"])
+        draw_glyph(d, c["icon"], (x + 14, yy + 16, x + 70, yy + 72),
                    c["color"])
-        d.text((x + 123, yy + 24), c["kicker"], font=load("sans_b", 18),
+        d.text((x + 82, yy + 16), c["kicker"], font=load("sans_b", 12),
                fill=c["color"])
-        hf = headline_font(d, c["headline"], [32, 30, 29, 27, 26],
-                           card_w - 144)
-        d.text((x + 123, yy + 51), c["headline"], font=hf, fill=INK)
-        sf = summary_font(d, c["summary"], [21, 20], card_w - 42, 3)
-        s_lines = wrap_text(d, c["summary"], sf, card_w - 42)
-        syy = yy + 117
+        hf = headline_font(d, c["headline"], [21, 20, 19, 18, 17],
+                           card_w - 96)
+        d.text((x + 82, yy + 34), c["headline"], font=hf, fill=INK)
+        sf = summary_font(d, c["summary"], [14, 13], card_w - 28, 3)
+        s_lines = wrap_text(d, c["summary"], sf, card_w - 28)
+        syy = yy + 78
         for ln in s_lines[:3]:
-            d.text((x + 21, syy), ln, font=sf, fill=INK)
-            syy += 27
-        d.text((x + 21, yy + card_h - 27), c["source"],
-               font=load("sans_b", 17), fill=GRAY)
+            d.text((x + 14, syy), ln, font=sf, fill=INK)
+            syy += 18
+        d.text((x + 14, yy + card_h - 18), c["source"],
+               font=load("sans_b", 11), fill=GRAY)
 
     # ---- footer
-    fy = gy + 3 * card_h + 2 * gap + 21
-    d.line([(M, fy), (W - M, fy)], fill=INK, width=3)
+    fy = gy + 3 * card_h + 2 * gap + 14
+    d.line([(M, fy), (W - M, fy)], fill=INK, width=2)
     f1 = ("Sources: Reuters · Wall Street Journal · CNN · Associated Press · "
           "Al Jazeera · Agence France-Presse · The Business Standard")
     f2 = ("Every fact checked against at least two independent reports. "
           "News of Thursday, 19 November 2026.")
-    d.text((M, fy + 15), f1, font=load("sans", 20), fill=INK)
-    d.text((M, fy + 45), f2, font=load("sans", 20), fill=GRAY)
+    d.text((M, fy + 10), f1, font=load("sans", 13), fill=INK)
+    d.text((M, fy + 30), f2, font=load("sans", 13), fill=GRAY)
     return img
 
 

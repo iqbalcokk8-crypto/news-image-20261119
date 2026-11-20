@@ -36,8 +36,8 @@ for (let i = 0; i < signature.length; i++) {
 // IHDR width and height are big-endian uint32 at offsets 16 and 20.
 const width = bytes.readUInt32BE(16);
 const height = bytes.readUInt32BE(20);
-if (width > 1536 || height > 1536) {
-  throw new Error(`entry.png is ${width}x${height}, over the 1536x1536 limit`);
+if (width > 1024 || height > 1024) {
+  throw new Error(`entry.png is ${width}x${height}, over the 1024x1024 limit`);
 }
 if (bytes.length > 1024 * 1024) {
   throw new Error(`entry.png is ${bytes.length} bytes, over the 1 MiB limit`);

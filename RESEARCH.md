@@ -242,3 +242,5 @@ Perubahan dari audit ini (satu-satunya perubahan isi pada revisi final):
    1536, semua geometri dan ukuran font diskalakan ×1,5 (round-half-up).
    Layout, warna, hierarki, tipografi, dan ilustrasi tidak berubah.
    Batas `main.ts` ikut diubah 1024 → 1536; batas 1 MiB dipertahankan.
+
+Gate fix 20 Nov 2026 — gambar dikembalikan 1536x1536 → 1024x1024 agar memenuhi gate kompetisi (RULES.txt: at most 1 MiB and at most 1024 by 1024 pixels). Isi TIDAK berubah: ketujuh berita sama, koreksi Bangladesh sama, sumber sama (The Business Standard). Batas main.ts kembali 1024; README kembali 1024x1024.
